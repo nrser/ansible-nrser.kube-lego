@@ -80,7 +80,7 @@ options: # []
   short: n
 
 - name: secret_name
-  description: spec:tls[*]:hosts:secretName value in Ingress.yml.
+  description: spec:tls[0]:secretName value in Ingress.yml.
   required: false
   type: string
   
