@@ -34,7 +34,7 @@ var_prefix: null
 #     -   starting at the current direcotry and climbing up to parent 
 #         directories, use the first one that contains FILENAME. error
 #         if none is found.
-default_dir: null
+default_dir: false
 
 # default user to become for play
 default_user: null
@@ -45,9 +45,42 @@ save_options: true
 # ask for an ansible vault password
 ask_vault_pass: false
 
-options: []
+options: # []
 # - name: example
 #   description: an example of a variable.
 #   required: false
 #   type: boolean # boolean (default) | string
 #   short: e
+- name: out
+  description: where to render the k8s template files to.
+  required: true
+  type: string
+  short: o
+
+- name: domains
+  description: the domain for the https service.
+  examples:
+  - echo.example.com
+  required: true
+  type: list
+  short: h
+
+- name: namespace
+  description: >
+    k8s namespace to load the Ingress into
+    (metadata:namespace in Ingress.yml).
+  required: false
+  type: string
+  short: s
+  
+- name: name
+  description: k8s Ingress metadata:name.
+  required: true
+  type: string
+  short: n
+
+- name: secret_name
+  description: spec:tls[*]:hosts:secretName value in Ingress.yml.
+  required: false
+  type: string
+  

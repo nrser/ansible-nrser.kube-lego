@@ -1,0 +1,37 @@
+---
+# adapted from files/kube-lego/examples/gce/echoserver/ingress-tls.yaml
+# 
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  {% if kube_lego_namespace -%}
+    namespace: {{ kube_lego_namespace }}
+  {%- endif %}
+  name: {{ kube_lego_name }}
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "gce"
+spec:
+  tls:
+  - hosts:
+    {% for domain in kube_lego_domains -%}
+    - {{ kube_lego_domains }}
+    {% endfor %}
+    secretName: {{ kube_lego_secret_name }}
+  rules:
+  {% for domain in kube_lego_domains -%}
+    {%-
+      set rule = {
+        'path': '/',
+        'service_name': kube_lego_name,
+        'port': 80,
+      } | combine(kube_lego_rules.get(domain, {}))
+    -%}
+  - host: {{ domain }}
+    http:
+      paths:
+      - path: {{ rule['path'] }}
+        backend:
+          serviceName: {{ rule['service_name'] }}
+          servicePort: {{ rule['port'] }}
+  {%- endfor %}

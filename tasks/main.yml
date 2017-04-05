@@ -1,2 +1,19 @@
 ---
 # tasks file for nrser.kube-lego
+
+# see https://github.com/jetstack/kube-lego/tree/master/examples/gce
+
+- name: render Ingress template
+  template:
+    src: Ingress.yml.j2
+    dest: "{{ kube_lego_out }}/Ingress.yml"
+
+# - debug: "msg={{ kube_lego_domains }}"
+
+# - name: deploy kube-lego
+#   command: >
+#     kubectl apply -f {{ lookup('resolve', 'kube-lego/examples/gce/lego/' + item) }}
+#   with_items:
+#   - 00-namespace.yaml
+#   - configmap.yaml
+#   - deployment.yaml

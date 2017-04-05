@@ -1,2 +1,10 @@
 ---
 # defaults file for nrser.kube-lego
+
+# null does not include the metadata:namespace key in Ingress.yml
+kube_lego_namespace: null
+
+# spec:tls[*]:hosts:secretName value in Ingress.yml
+kube_lego_secret_name: "{{ kube_lego_name }}-tls"
+
+kube_lego_rules: {}
