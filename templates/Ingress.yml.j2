@@ -14,20 +14,20 @@ metadata:
 spec:
   tls:
   - hosts:
-    {% for domain in kube_lego_domains -%}
-    - {{ domain }}
+    {% for host in kube_lego_hosts -%}
+    - {{ host }}
     {% endfor -%}
     secretName: {{ kube_lego_secret_name }}
   rules:
-  {% for domain in kube_lego_domains -%}
+  {% for host in kube_lego_hosts -%}
     {%-
       set rule = {
         'path': '/',
         'service_name': kube_lego_name,
         'port': 80,
-      } | combine(kube_lego_rules.get(domain, {}))
+      } | combine(kube_lego_rules.get(host, {}))
     -%}
-  - host: {{ domain }}
+  - host: {{ host }}
     http:
       paths:
       - path: {{ rule['path'] }}

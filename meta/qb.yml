@@ -57,8 +57,8 @@ options: # []
   type: string
   short: o
 
-- name: domains
-  description: the domain for the https service.
+- name: hosts
+  description: the hosts for the https service.
   examples:
   - echo.example.com
   required: true

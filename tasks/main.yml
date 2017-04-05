@@ -8,7 +8,7 @@
     src: Ingress.yml.j2
     dest: "{{ kube_lego_out }}/Ingress.yml"
 
-# - debug: "msg={{ kube_lego_domains }}"
+# - debug: "msg={{ kube_lego_hosts }}"
 
 # - name: deploy kube-lego
 #   command: >
