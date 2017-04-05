@@ -8,3 +8,6 @@ kube_lego_namespace: null
 kube_lego_secret_name: "{{ kube_lego_name }}-tls"
 
 kube_lego_rules: {}
+
+# don't deploy by default
+kube_lego_deploy: false

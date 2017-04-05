@@ -83,4 +83,15 @@ options: # []
   description: spec:tls[0]:secretName value in Ingress.yml.
   required: false
   type: string
-  
+
+- name: email
+  description: email address for Let's Encrypt
+  required: true
+  type: string
+  short: e
+
+- name: deploy
+  description: deploy the declarations to kubernetes.
+  required: false
+  type: boolean
+  short: d
