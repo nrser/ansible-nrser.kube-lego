@@ -1,3 +1,0 @@
-[submodule "files/kube-lego"]
-	path = files/kube-lego
-	url = git@github.com:jetstack/kube-lego.git
