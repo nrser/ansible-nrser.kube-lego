@@ -11,7 +11,7 @@
     - src: Ingress.yml.j2
       dest: "{{ kube_lego_out }}/{{ kube_lego_name }}.Ingress.yml"
       
-    - src: Ingress.yml.j2
+    - src: ConfigMap.yml.j2
       dest: "{{ kube_lego_out }}/ConfigMap.yml"
     
     - src: Deployment.yml.j2
