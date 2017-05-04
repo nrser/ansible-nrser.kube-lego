@@ -4,20 +4,17 @@
 # see https://github.com/jetstack/kube-lego/tree/master/examples/gce
 
 - set_fact:
-    kube_lego_namespace:
-      src: Namespace.yml.j2
+    kube_lego_templates:
+    - src: Namespace.yml.j2
       dest: "{{ kube_lego_out }}/Namespace.yml"
-      
-    kube_lego_ingress:
-      src: Ingress.yml.j2
+    
+    - src: Ingress.yml.j2
       dest: "{{ kube_lego_out }}/{{ kube_lego_name }}.Ingress.yml"
       
-    kube_lego_configmap:
-      src: Ingress.yml.j2
+    - src: Ingress.yml.j2
       dest: "{{ kube_lego_out }}/ConfigMap.yml"
     
-    kube_lego_deployment:
-      src: Deployment.yml.j2
+    - src: Deployment.yml.j2
       dest: "{{ kube_lego_out }}/Deployment.yml"
 
 - name: >
@@ -31,11 +28,7 @@
   template:
     src: "{{ kube_lego_template.src }}"
     dest: "{{ kube_lego_template.dest }}"
-  with_items:
-  - "{{ kube_lego_namespace }}"
-  - "{{ kube_lego_configmap }}"
-  - "{{ kube_lego_ingress }}"
-  - "{{ kube_lego_deployment }}"
+  with_items: "{{ kube_lego_templates }}"
   loop_control:
     loop_var: kube_lego_template
 
@@ -43,10 +36,6 @@
   when: kube_lego_deploy
   command: >
     kubectl apply -f {{ kube_lego_template.dest }}
-  with_items:
-  - "{{ kube_lego_namespace }}"
-  - "{{ kube_lego_configmap }}"
-  - "{{ kube_lego_ingress }}"
-  - "{{ kube_lego_deployment }}"
+  with_items: "{{ kube_lego_templates }}"
   loop_control:
     loop_var: kube_lego_template
