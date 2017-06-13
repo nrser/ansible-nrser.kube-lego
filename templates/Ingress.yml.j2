@@ -14,7 +14,7 @@ metadata:
 spec:
   # default backend so you can reach the service directly via IP
   backend:
-    serviceName: frontend
+    serviceName: {{ kube_lego_name }}
     servicePort: 80
   
   # the TLS backends
