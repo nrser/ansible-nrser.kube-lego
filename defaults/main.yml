@@ -15,3 +15,5 @@ kube_lego_dest_port: 80
 
 # don't deploy by default
 kube_lego_deploy: false
+
+kube_lego_gcloud_ip_name: null

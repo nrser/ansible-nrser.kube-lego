@@ -15,7 +15,15 @@ metadata:
   annotations:
     kubernetes.io/tls-acme: "true"
     kubernetes.io/ingress.class: "gce"
-  # / annotations
+    {#
+      ref https://github.com/kelseyhightower/ingress-with-static-ip
+          https://archive.is/ElWE8
+    -#}
+    {% if kube_lego_gcloud_ip_name -%}
+    kubernetes.io/ingress.global-static-ip-name: >-
+      {{ kube_lego_gcloud_ip_name }}
+    {% endif %}
+  {# / annotations #}
   
 # / metadata
 

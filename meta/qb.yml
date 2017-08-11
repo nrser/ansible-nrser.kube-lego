@@ -69,7 +69,6 @@ options: # []
   description: >
     k8s namespace to load the Ingress into
     (metadata:namespace in Ingress.yml).
-  required: false
   type: string
   short: s
   
@@ -92,9 +91,14 @@ options: # []
   type: string
   short: p
 
+- name: gcloud_ip_name
+  description: >-
+    The name of the Google Cloud global static IP to use.
+    See https://archive.is/ElWE8.
+  type: string
+
 - name: secret_name
   description: spec:tls[0]:secretName value in Ingress.yml.
-  required: false
   type: string
 
 - name: email
@@ -105,5 +109,4 @@ options: # []
 
 - name: deploy
   description: deploy the declarations to kubernetes.
-  required: false
   type: boolean
