@@ -7,7 +7,11 @@ kube_lego_namespace: null
 # spec:tls[0]:secretName value in Ingress.yml
 kube_lego_secret_name: "{{ kube_lego_name }}-tls"
 
+# Rule overrides keyed by host
 kube_lego_rules: {}
+
+# Default to send traffic to port 80 (HTTP) of the destination service.
+kube_lego_dest_port: 80
 
 # don't deploy by default
 kube_lego_deploy: false

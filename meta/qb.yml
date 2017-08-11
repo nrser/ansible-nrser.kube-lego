@@ -79,6 +79,13 @@ options: # []
   type: string
   short: n
 
+- name: dest_name
+  description: >-
+    k8s Ingress destination service name.
+  required: true
+  type: string
+  short: d
+
 - name: secret_name
   description: spec:tls[0]:secretName value in Ingress.yml.
   required: false
@@ -94,4 +101,3 @@ options: # []
   description: deploy the declarations to kubernetes.
   required: false
   type: boolean
-  short: d

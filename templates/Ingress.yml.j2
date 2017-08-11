@@ -3,34 +3,47 @@
 # 
 apiVersion: extensions/v1beta1
 kind: Ingress
+
 metadata:
+  
   {% if kube_lego_namespace -%}
   namespace: {{ kube_lego_namespace }}
   {% endif -%}
+  
   name: {{ kube_lego_name }}
+  
   annotations:
     kubernetes.io/tls-acme: "true"
     kubernetes.io/ingress.class: "gce"
+  # / annotations
+  
+# / metadata
+
 spec:
+  
   # default backend so you can reach the service directly via IP
   backend:
-    serviceName: {{ kube_lego_name }}
-    servicePort: 80
+    serviceName: {{ kube_lego_dest_name }}
+    servicePort: {{ kube_lego_dest_port }}
+  # / backend
   
-  # the TLS backends
+  # The TLS backends
   tls:
   - hosts:
     {% for host in kube_lego_hosts -%}
     - {{ host }}
     {% endfor -%}
     secretName: {{ kube_lego_secret_name }}
+  # / tls
+  
+  # Routing rules
   rules:
   {% for host in kube_lego_hosts -%}
     {%-
       set rule = {
         'path': '/',
-        'service_name': kube_lego_name,
-        'port': 80,
+        'service_name': kube_lego_dest_name,
+        'port': kube_lego_dest_port,
       } | combine(kube_lego_rules.get(host, {}))
     -%}
   - host: {{ host }}
@@ -41,3 +54,7 @@ spec:
           serviceName: {{ rule['service_name'] }}
           servicePort: {{ rule['port'] }}
   {% endfor -%}
+  
+  # / rules
+  
+# / spec
