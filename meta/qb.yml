@@ -86,6 +86,12 @@ options: # []
   type: string
   short: d
 
+- name: dest_port
+  description: >-
+    k8s Ingress destination port.
+  type: string
+  short: p
+
 - name: secret_name
   description: spec:tls[0]:secretName value in Ingress.yml.
   required: false
