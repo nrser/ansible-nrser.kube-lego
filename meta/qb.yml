@@ -110,3 +110,8 @@ options: # []
 - name: deploy
   description: deploy the declarations to kubernetes.
   type: boolean
+
+- name: force
+  description: >-
+    Use the `--force` option with `kubectl apply`.
+  type: boolean
